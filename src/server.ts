@@ -1,9 +1,12 @@
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import express from 'express';
 import path from 'path';
 
 const app = express();
 const PORT = 3001;
+
+app.use(cors());
 
 // Accept large JSON payloads (e.g. base64-encoded PNG)
 app.use(bodyParser.json({ limit: '10mb' }));
