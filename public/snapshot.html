@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Latest Snapshot</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        margin-top: 3em;
+      }
+      img {
+        max-width: 90vw;
+        max-height: 80vh;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Latest Snapshot</h1>
+    <div id="snapshot-container">
+      <p>Loading...</p>
+    </div>
+
+    <script>
+      fetch('/api/latest-image')
+        .then(res => {
+          if (!res.ok) throw new Error('No image found');
+          return res.json();
+        })
+        .then(data => {
+          const img = document.createElement('img');
+          img.src = data.image;
+          document.getElementById('snapshot-container').innerHTML = '';
+          document.getElementById('snapshot-container').appendChild(img);
+        })
+        .catch(() => {
+          document.getElementById('snapshot-container').innerHTML = '<h2>No snapshot available</h2>';
+        });
+    </script>
+  </body>
+</html>
+
